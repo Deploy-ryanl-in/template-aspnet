@@ -17,7 +17,7 @@ permissions:
   id-token: write
 jobs:
   operate:
-    uses: Deploy-ryanl-in/personal-paas/.github/workflows/operate.yml@fc464df7f9313a9a6ec90461c1b48d4ada0ba3ee
+    uses: Deploy-ryanl-in/personal-paas/.github/workflows/operate.yml@14831eac536f36bbf82baa1394f2c59aa0423f28
     with:
       action: ${{ inputs.action }}
       service: ${{ inputs.service }}
