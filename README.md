@@ -9,7 +9,7 @@ dotnet restore --locked-mode
 dotnet run --project src/App
 ```
 
-需要 .NET SDK 10.0.401。开发完成后 commit、push 到 `paas.json` 声明的部署分支（默认 main）。首次本地 push 会触发测试、GHCR 构建和 OIDC 部署，成功后通过 `仓库名.ryanl.in` 访问。模板自身的 push 只执行测试。
+需要 .NET SDK 10.0.401。开发完成后 commit、push 到 `paas.json` 声明的部署分支（默认 main）。创建仓库的初始提交与后续 push 均会触发测试、GHCR 构建和 OIDC 部署，成功后通过 `仓库名.ryanl.in` 访问。模板自身的 push 只执行测试。
 
 默认示例无需密钥。`dotnet format --verify-no-changes`、`dotnet build -c Release`、`dotnet test -c Release` 与 CI 一致。后续用 `git pull` 同步自己的仓库；模板更新不会自动改写生成的独立仓库。
 
