@@ -25,8 +25,8 @@ jobs:
       packages: write
       actions: read
       id-token: write
-    uses: Deploy-ryanl-in/personal-paas/.github/workflows/release.yml@14831eac536f36bbf82baa1394f2c59aa0423f28
+    uses: Deploy-ryanl-in/personal-paas/.github/workflows/release.yml@89e69485c95771272977c3bdec74bb0fe20f8eec
     with:
-      platform-sha: 14831eac536f36bbf82baa1394f2c59aa0423f28
+      platform-sha: 89e69485c95771272977c3bdec74bb0fe20f8eec
     secrets:
       PAAS_SECRETS: ${{ secrets.PAAS_SECRETS }}
