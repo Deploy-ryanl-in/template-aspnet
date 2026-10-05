@@ -15,9 +15,10 @@ on:
 permissions:
   contents: read
   id-token: write
+  actions: read
 jobs:
   operate:
-    uses: Deploy-ryanl-in/personal-paas/.github/workflows/operate.yml@fc1d8f3684c80f3ec9910b9ac60a5472ef7c712b
+    uses: Deploy-ryanl-in/personal-paas/.github/workflows/operate.yml@5bd7960c2f4cc1fa0a8b5cc23a4e264a13ba686d
     with:
       deployment-url: https://deploy.ryanl.in
       action: ${{ inputs.action }}
