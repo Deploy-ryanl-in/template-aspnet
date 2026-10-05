@@ -1,15 +1,15 @@
 # ASP.NET Core Personal PaaS template
 
-在 GitHub 点击 **Use this template → Create a new repository**，owner 选择 `Deploy-ryanl-in`，可选公有或私有。
+在 GitHub 点击 **Use this template → Create a new repository**，owner 选择 `RyanStanLin` 或 `Deploy-ryanl-in`，可选公有或私有。
 
 ```sh
-git clone https://github.com/Deploy-ryanl-in/你的仓库.git
+git clone https://github.com/RyanStanLin/你的仓库.git
 cd 你的仓库
 dotnet restore --locked-mode
 dotnet run --project src/App
 ```
 
-需要 .NET SDK 10.0.401。开发完成后 commit、push 到 `paas.json` 声明的部署分支（默认 main）。创建仓库的初始提交与后续 push 均会触发测试、GHCR 构建和 OIDC 部署，成功后通过 `仓库名.ryanl.in` 访问。模板自身的 push 只执行测试。
+需要 .NET SDK 10.0.401。开发完成后 commit、push 到 `paas.json` 声明的部署分支（默认 main）。创建仓库后首次本地 push 会触发测试、GHCR 构建和 OIDC 部署，成功后通过 `仓库名.ryanl.in` 访问。模板自身的 push 只执行测试。
 
 默认示例无需密钥。`dotnet format --verify-no-changes`、`dotnet build -c Release`、`dotnet test -c Release` 与 CI 一致。后续用 `git pull` 同步自己的仓库；模板更新不会自动改写生成的独立仓库。
 
@@ -21,4 +21,4 @@ dotnet run --project src/App
 
 在 **Actions → PaaS operations → Run workflow** 查看状态、日志、历史、回滚、停用、备份/恢复和数据库升级。停用保留卷。恢复必须填写 `RESTORE <repository ID>`；代码回滚不会回滚数据库写入。
 
-中央 workflow 和第三方 Actions 固定 commit SHA；Dependabot 每周通过 PR 更新依赖。初次发布须由平台管理员完成服务器凭据配置。个人账号仓库需要 repository ID 白名单；组织内新仓库自动接入。
+中央 workflow 和第三方 Actions 固定 commit SHA；Dependabot 每周通过 PR 更新依赖。初次发布须由平台管理员完成服务器凭据配置。已绑定的 RyanStanLin 个人账号和 Deploy-ryanl-in 组织内新仓库均自动接入，无需逐仓库白名单。
