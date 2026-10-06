@@ -5,7 +5,7 @@ on:
       action:
         description: Fixed platform operation
         type: choice
-        options: [status, history, logs, redeploy, rollback, stop, backup, backups, download-backup, restore, database-upgrade]
+        options: [status, routes, history, logs, start, stop, restart, delete, cleanup-images, redeploy, rollback, backup, backups, download-backup, restore, database-upgrade]
         default: status
       service: {description: Named service, default: web, type: string}
       release-id: {description: Rollback release ID, type: string}
@@ -18,7 +18,7 @@ permissions:
   actions: read
 jobs:
   operate:
-    uses: Deploy-ryanl-in/personal-paas/.github/workflows/operate.yml@5bd7960c2f4cc1fa0a8b5cc23a4e264a13ba686d
+    uses: Deploy-ryanl-in/personal-paas/.github/workflows/operate.yml@f33657fd7ce6e4cd4d018d72f2f23b37a0842755
     with:
       deployment-url: https://deploy.ryanl.in
       action: ${{ inputs.action }}

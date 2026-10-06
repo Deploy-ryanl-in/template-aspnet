@@ -27,14 +27,23 @@
         "DATABASE_NAME": "app",
         "DATABASE_USER": "app",
         "REDIS_HOST": "redis",
-        "REDIS_PORT": "6379"
+        "REDIS_PORT": "6379",
+        "CONFIG_PATH": "/data/config.json"
       },
       "secretRefs": {
-        "DATABASE_PASSWORD": "POSTGRES_PASSWORD"
+        "DATABASE_PASSWORD": "POSTGRES_PASSWORD",
+        "REDIS_PASSWORD": "REDIS_PASSWORD",
+        "API_TOKEN": "API_TOKEN"
       },
       "dependsOn": [
         "postgres",
         "redis"
+      ],
+      "volumes": [
+        {
+          "name": "app-config",
+          "target": "/data"
+        }
       ]
     },
     "postgres": {
@@ -67,6 +76,9 @@
         "cpu": 0.2,
         "pids": 32
       },
+      "secretRefs": {
+        "REDIS_PASSWORD": "REDIS_PASSWORD"
+      },
       "volumes": [
         {
           "name": "redis-data",
@@ -90,6 +102,9 @@
       ],
       "environment": {
         "REDIS_HOST": "redis"
+      },
+      "secretRefs": {
+        "REDIS_PASSWORD": "REDIS_PASSWORD"
       }
     }
   }

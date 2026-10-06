@@ -4,3 +4,7 @@ TestResults/
 .env
 .env.local
 .vs/
+
+local-data/
+
+paas.secrets.json
