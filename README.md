@@ -19,7 +19,7 @@ git commit -m "Build my app"
 git push origin main
 ```
 
-首次本地 push 自动执行 CI、GHCR 构建、部署和 HTTPS，访问 `仓库名.ryanl.in`。以后 `git pull` 同步自己的仓库；模板更新不会改写已有项目。
+创建仓库时可能已触发默认示例的首轮部署；每次本地 push 都自动执行 CI、GHCR 构建、部署和 HTTPS，访问 `仓库名.ryanl.in`。以后 `git pull` 同步自己的仓库；模板更新不会改写已有项目。
 
 ## PostgreSQL、Redis 和 JSON 持久文件
 
