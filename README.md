@@ -48,3 +48,20 @@ git push origin main
 **Actions → PaaS operations → Run workflow** 提供 `start`、`stop`、`restart`、`delete`、`cleanup-images`、状态/日志/路由、重新部署、回滚和加密备份/恢复。操作作用于本仓库整个应用栈；delete 保留数据，start 可重建。cleanup-images 只删除 VPS 上本仓库未使用的应用镜像，运行和停止容器正在使用的镜像不会删除，GHCR 包保留。
 
 完整 SOP、变量解释、数据库密码、持久化、共享路由及操作细节见 [平台 Wiki](https://github.com/Deploy-ryanl-in/personal-paas/wiki)。应用总预算768 MiB包含更新候选；示例192 MiB Web +256 MiB PostgreSQL +64 MiB Redis，Web更新时共704 MiB。
+
+## 本地 PostgreSQL + Redis 开发
+
+需要本地 Docker Engine / Docker Compose（Linux、Docker Desktop 或已有的 OrbStack）。以下只在开发机器启动数据库，不修改 VPS；密码独立于生产 `PAAS_SECRETS`。
+
+```sh
+python3 scripts/create-local-env.py
+docker compose --env-file .env.local -f compose.dev.yml up -d --wait
+set -a
+source .env.local
+set +a
+dotnet run --project src/App
+```
+
+PostgreSQL 绑定 `127.0.0.1:15432`，Redis 绑定 `127.0.0.1:16379`；账号/数据库默认为 `app`。`.env.local` 由脚本生成、权限600且被忽略，已有文件不会覆盖。数据库与Redis都有密码，数据放在开发 Compose 命名卷。开发结束执行 `docker compose --env-file .env.local -f compose.dev.yml down`，数据卷保留。
+
+ASP.NET CI 已用同一套 Compose 验证真实 PostgreSQL/Redis 读写、JSON 文件与 WebSocket；手动验证可在另一终端加载 `.env.local` 后运行 `python3 scripts/api-smoke.py http://localhost:8080 --local`。
