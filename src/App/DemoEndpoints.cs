@@ -38,6 +38,7 @@ public static class DemoEndpoints
             }
             catch (Exception exception) when (exception is WebSocketException or OperationCanceledException) { }
         });
+        if (string.IsNullOrEmpty(app.Configuration["API_TOKEN"])) return;
         var data = app.MapGroup("/api/data").AddEndpointFilter(async (context, next) =>
         {
             var configuration = context.HttpContext.RequestServices.GetRequiredService<IConfiguration>();

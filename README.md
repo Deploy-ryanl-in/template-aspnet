@@ -33,7 +33,7 @@ git push origin main
 ```
 
 3. commit/push；Web 服务通过 `postgres:5432` 和 `redis:6379` 连接本仓库隔离网络，数据库端口不公开。`DATABASE_PASSWORD` 引用同一个 `POSTGRES_PASSWORD` 值。
-4. `/api/data/postgres/{key}` 与 `/api/data/redis/{key}` 支持 GET/PUT，PUT JSON 为 `{"value":"hello"}`。`/api/data/config` 支持 GET/PUT 任意不超过 64 KiB 的 JSON，保存到应用命名卷 `/data/config.json`。这些接口都必须发送 `X-Demo-Token: <API_TOKEN>`，没有令牌返回401。
+4. `/api/data/postgres/{key}` 与 `/api/data/redis/{key}` 支持 GET/PUT，PUT JSON 为 `{"value":"hello"}`。`/api/data/config` 支持 GET/PUT 任意不超过 64 KiB 的 JSON，保存到应用命名卷 `/data/config.json`。启用后的这些接口必须发送 `X-Demo-Token: <API_TOKEN>`，没有令牌返回401；未配置 API_TOKEN 时数据接口不注册，返回404，避免未启用的功能参与共享域名冲突。
 
 `CONFIG_PATH` 只决定应用内文件路径；平台持久化由 `volumes` 声明决定。容器根文件系统只读，`/tmp` 在容器停止后会丢失，命名卷会在 stop、restart、delete 和后续 start 后保留。PostgreSQL、Redis 数据卷同样保留。普通 push 不会轮换现有数据库账号密码；详见 Wiki。
 
