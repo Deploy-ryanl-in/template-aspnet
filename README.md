@@ -65,3 +65,7 @@ dotnet run --project src/App
 PostgreSQL 绑定 `127.0.0.1:15432`，Redis 绑定 `127.0.0.1:16379`；账号/数据库默认为 `app`。`.env.local` 由脚本生成、权限600且被忽略，已有文件不会覆盖。数据库与Redis都有密码，数据放在开发 Compose 命名卷。开发结束执行 `docker compose --env-file .env.local -f compose.dev.yml down`，数据卷保留。
 
 ASP.NET CI 已用同一套 Compose 验证真实 PostgreSQL/Redis 读写、JSON 文件与 WebSocket；手动验证可在另一终端加载 `.env.local` 后运行 `python3 scripts/api-smoke.py http://localhost:8080 --local`。
+
+## 共享路由缓存
+
+每次部署分支push会独立清除本仓库涉及子域名的路由缓存，CI失败也执行。缓存命中仍复制请求，唯一已确认服务响应后立即返回；迟到冲突会清缓存并记录日志。手动使用Actions的 `route-cache` / `clear-route-cache`，可填完整domain或留空清本仓库全部相关域名。详情见[路由缓存](https://github.com/Deploy-ryanl-in/personal-paas/wiki/Route-cache)。
